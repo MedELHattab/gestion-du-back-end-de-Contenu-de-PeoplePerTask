@@ -23,8 +23,7 @@ require("cnx.php");
         <aside id="sidebar" class="side">
             <div class="h-100">
                 <div class="sidebar_logo d-flex align-items-end">
-                    <img src="img/logo.svg" alt="">
-                    <a href="#" class="nav-link text-white-50">Dashboard</a>
+                <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
                     <img class="close align-self-start" src="img/close.svg" alt="">
                 </div>
 

@@ -23,8 +23,7 @@ require("cnx.php");
         <aside id="sidebar" class="side">
             <div class="h-100">
                 <div class="sidebar_logo d-flex align-items-end">
-                    <img src="img/logo.svg" alt="">
-                    <a href="#" class="nav-link text-white-50">Dashboard</a>
+                <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
                     <img class="close align-self-start" src="img/close.svg" alt="">
                 </div>
 
@@ -118,8 +117,28 @@ require("cnx.php");
 
 
             <section class="Agents px-4">
-            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
-                               data-bs-target="#exampleModalCenter1"> Add user </button>
+            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addcategoriesModal">
+    Add categories
+</button>
+<div class="modal fade" id="addcategoriesModal" tabindex="-1" aria-labelledby="addcategoriesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addcategoriesModalLabel">Add New categories</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addcategoriesForm">
+                    <div class="mb-3">
+                        <label for="Categorie_Name" class="form-label">Categorie_Name</label>
+                        <textarea class="form-control" id="Categorie_Name" name="Categorie_Name" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add categories</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                 <table class="agent table align-middle bg-white">
 
                     <thead class="bg-light">
@@ -217,6 +236,53 @@ require("cnx.php");
             </div>
         </div>
     </div>
+    <script>
+$(document).ready(function () {
+$(".btn-danger").click(function () {
+var Categorie_ID = $(this).closest("tr").find("td:first-child").text();
+
+        $.ajax({
+            url: "delete.php",
+            type: "GET",
+            data: { Categorie_ID: Categorie_ID },
+            success: function (response) {
+                if (response === "success") {
+                    
+                    location.reload();
+                } else {
+                    alert("Error deleting Categorie");
+                }
+            }
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    // Handle form submission
+    $("#addcategoriesForm").submit(function (e) {
+        e.preventDefault();
+
+        // Get form data
+        var formData = $(this).serialize();
+
+        // Send AJAX request to add_project.php
+        $.ajax({
+            url: "add_categorie.php",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                if (response === "success") {
+                    // Refresh the page or update the table as needed
+                    location.reload();
+                } else {
+                    alert("Error adding categories");
+                }
+            }
+        });
+    });
+});
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

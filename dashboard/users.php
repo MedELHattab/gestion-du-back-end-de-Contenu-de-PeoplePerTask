@@ -23,8 +23,7 @@ require("cnx.php");
         <aside id="sidebar" class="side">
             <div class="h-100">
                 <div class="sidebar_logo d-flex align-items-end">
-                    <img src="img/logo.svg" alt="">
-                    <a href="#" class="nav-link text-white-50">Dashboard</a>
+                <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
                     <img class="close align-self-start" src="img/close.svg" alt="">
                 </div>
 
@@ -120,7 +119,7 @@ require("cnx.php");
             <section class="Agents px-4">
             <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
                                data-bs-target="#exampleModalCenter1"> Add user </button>
-                <table class="agent table align-middle bg-white">
+                               <table id="yourTableID" class="agent table align-middle bg-white">
 
                     <thead class="bg-light">
                         <tr>
@@ -128,7 +127,9 @@ require("cnx.php");
                             <th>Username</th>
                             <th>Hashed_Password</th>
                             <th>Email_Address</th>
-                            <th>Phone</th>    
+                            <th>Phone</th>
+                            <th>Region_id</th>
+                            <th>Ville_id</th>   
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
@@ -159,6 +160,12 @@ require("cnx.php");
                                     <td>
                                         <?php echo $row['Phone']; ?>
                                     </td>
+                                    <td>
+                                        <?php echo $row['region_id']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['ville_id']; ?>
+                                    </td>
                                     <td><a href="#" class="btn btn-success">Update</a></td>
                                     <td><a href="#" class="btn btn-danger">Delete</a></td>
                                 </tr>
@@ -182,7 +189,7 @@ $(".btn-danger").click(function () {
 var User_ID = $(this).closest("tr").find("td:first-child").text();
 
         $.ajax({
-            url: "delete_project.php",
+            url: "delete.php",
             type: "GET",
             data: { User_ID: User_ID },
             success: function (response) {
@@ -200,6 +207,12 @@ var User_ID = $(this).closest("tr").find("td:first-child").text();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+        <script>
+$(document).ready(function() {
+    $('#yourTableID').DataTable();
+});
+</script>
+
     <script src="dashboard.js"></script>
     <script src="agents.js"></script>
 </body>

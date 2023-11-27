@@ -23,8 +23,7 @@ require("cnx.php");
         <aside id="sidebar" class="side">
             <div class="h-100">
                 <div class="sidebar_logo d-flex align-items-end">
-                    <img src="img/logo.svg" alt="">
-                    <a href="#" class="nav-link text-white-50">Dashboard</a>
+                <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
                     <img class="close align-self-start" src="img/close.svg" alt="">
                 </div>
 
@@ -190,62 +189,7 @@ require("cnx.php");
 
 
             </section>
-            <!-- edit modal -->
-            <div class="modal">
-                <div class="modal-content">
-                    <form id="forms">
-                        <!-- 2 column grid layout with text inputs for the first and last names -->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">First name</label>
-                                    <input type="text" class="form-control first_name">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">Last name</label>
-                                    <input type="text" class="form-control last_name">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Email</label>
-                            <input type="text" class="form-control email">
-                        </div>
-
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-control title_user">
-                        </div>
-
-                        <!-- Number input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Status</label>
-                            <input type="text" class="form-control status">
-                        </div>
-
-                        <!-- Message input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Position</label>
-                            <textarea class="form-control position" rows="4"></textarea>
-                        </div>
-
-                        <!-- Submit button -->
-                        <div class="d-flex w-100 justify-content-center">
-                            <p class="error text-danger"></p>
-                            <button type="submit" class="btn btn-success btn-block mb-4 me-4 save">Save Edit</button>
-                            <button class="btn btn-danger btn-block mb-4 annuler">Annuler</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
+            
     <script>
 $(document).ready(function () {
 $(".btn-danger").click(function () {

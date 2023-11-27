@@ -51,4 +51,31 @@ if (isset($_GET['Testimonial_ID'])) {
         echo "error";
     }
 }
+
+if (isset($_GET['Categorie_ID'])) {
+    $Categorie_ID = $_GET['Categorie_ID'];
+
+    $query = "DELETE FROM categories WHERE Categorie_ID = '$Categorie_ID'";
+    $result = mysqli_query($cnx, $query);
+
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+}
+
+if (isset($_GET['SousCategorie_ID'])) {
+    $SousCategorie_ID = $_GET['SousCategorie_ID'];
+
+    $query = "DELETE FROM souscategories WHERE SousCategorie_ID = '$SousCategorie_ID'";
+    $result = mysqli_query($cnx, $query);
+
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+}
 ?>
+

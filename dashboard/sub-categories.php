@@ -23,8 +23,7 @@ require("cnx.php");
         <aside id="sidebar" class="side">
             <div class="h-100">
                 <div class="sidebar_logo d-flex align-items-end">
-                    <img src="img/logo.svg" alt="">
-                    <a href="#" class="nav-link text-white-50">Dashboard</a>
+                <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
                     <img class="close align-self-start" src="img/close.svg" alt="">
                 </div>
 
@@ -118,8 +117,32 @@ require("cnx.php");
 
 
             <section class="Agents px-4">
-            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
-                               data-bs-target="#exampleModalCenter1"> Add user </button>
+            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addsouscategoriesModal">
+    Add souscategories
+</button>
+<div class="modal fade" id="addsouscategoriesModal" tabindex="-1" aria-labelledby="addsouscategoriesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addsouscategoriesModalLabel">Add New souscategories</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addsouscategoriesForm">
+                <div class="mb-3">
+                        <label for="SousCategorie_Name" class="form-label">SousCategorie_Name</label>
+                        <input type="text" class="form-control" id="SousCategorie_Name" name="SousCategorie_Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Categorie_ID" class="form-label">Categorie_ID</label>
+                        <input type="text" class="form-control" id="Categorie_ID" name="Categorie_ID" required>
+                    </div>    
+                    <button type="submit" class="btn btn-primary">Add souscategories</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                 <table class="agent table align-middle bg-white">
 
                     <thead class="bg-light">
@@ -165,62 +188,54 @@ require("cnx.php");
 
 
             </section>
-            <!-- edit modal -->
-            <div class="modal">
-                <div class="modal-content">
-                    <form id="forms">
-                        <!-- 2 column grid layout with text inputs for the first and last names -->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">First name</label>
-                                    <input type="text" class="form-control first_name">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">Last name</label>
-                                    <input type="text" class="form-control last_name">
-                                </div>
-                            </div>
-                        </div>
+            
+    <script>
+$(document).ready(function () {
+$(".btn-danger").click(function () {
+var SousCategorie_ID = $(this).closest("tr").find("td:first-child").text();
 
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Email</label>
-                            <input type="text" class="form-control email">
-                        </div>
+        $.ajax({
+            url: "delete.php",
+            type: "GET",
+            data: { SousCategorie_ID: SousCategorie_ID },
+            success: function (response) {
+                if (response === "success") {
+                    
+                    location.reload();
+                } else {
+                    alert("Error deleting Categorie");
+                }
+            }
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    // Handle form submission
+    $("#addsouscategoriesForm").submit(function (e) {
+        e.preventDefault();
 
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-control title_user">
-                        </div>
+        // Get form data
+        var formData = $(this).serialize();
 
-                        <!-- Number input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Status</label>
-                            <input type="text" class="form-control status">
-                        </div>
-
-                        <!-- Message input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Position</label>
-                            <textarea class="form-control position" rows="4"></textarea>
-                        </div>
-
-                        <!-- Submit button -->
-                        <div class="d-flex w-100 justify-content-center">
-                            <p class="error text-danger"></p>
-                            <button type="submit" class="btn btn-success btn-block mb-4 me-4 save">Save Edit</button>
-                            <button class="btn btn-danger btn-block mb-4 annuler">Annuler</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
+        // Send AJAX request to add_project.php
+        $.ajax({
+            url: "SousCategorie_add.php",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                if (response === "success") {
+                    // Refresh the page or update the table as needed
+                    location.reload();
+                } else {
+                    alert("Error adding souscategories");
+                }
+            }
+        });
+    });
+});
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
