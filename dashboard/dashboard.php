@@ -134,82 +134,20 @@
           </div>
         </nav>
         <section class="overview">
-          <div class="row p-4">
-            <div class="col-xl-3 col-sm-6 col-12 mb-4">
-              <div class="card">
-                <div class="card-body p-4">
-                  <div class="d-flex justify-content-between px-md-1">
-                    <div>
-                      <p class="mb-0">Projects</p>
-                      <div class="mt-4">
-                        <h3><strong>18</strong></h3>
-                        <p><strong>2</strong> Completed</p>
-                      </div>
-                    </div>
-                    <div class="cursor">
-                      <img src="img/project-icon-1.svg" alt="icon" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12 mb-4">
-              <div class="card">
-                <div class="card-body p-4">
-                  <div class="d-flex justify-content-between px-md-1">
-                    <div>
-                      <p class="mb-0">Active Task</p>
-                      <div class="mt-4">
-                        <h3><strong>132</strong></h3>
-                        <p><strong>32</strong> Completed</p>
-                      </div>
-                    </div>
-                    <div class="">
-                      <img src="img/project-icon-2.svg" alt="icon" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12 mb-4">
-              <div class="card">
-                <div class="card-body p-4">
-                  <div class="d-flex justify-content-between px-md-1">
-                    <div>
-                      <p class="mb-0">Teams</p>
-                      <div class="mt-4">
-                        <h3><strong>12</strong></h3>
-                        <p><strong></strong> Completed</p>
-                      </div>
-                    </div>
-                    <div class="">
-                      <img src="img/project-icon-3.svg" alt="icon" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12 mb-4">
-              <div class="card">
-                <div class="card-body p-4">
-                  <div class="d-flex justify-content-between px-md-1">
-                    <div>
-                      <p class="mb-0">Projects</p>
-                      <div class="mt-4">
-                        <h3><strong>76%</strong></h3>
-                        <p><strong>57%</strong> Completed</p>
-                      </div>
-                    </div>
-                    <div class="">
-                      <img src="img/project-icon-4.svg" alt="icon" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="row p-5">
+              <div class="d-flex flex-row column-gap-5">
+              <?php
+                  include('stat_users.php');
+               ?>
+              <?php
+                  include('stat_projects.php');
+               ?>
+              <?php
+                  include('stat_categories.php');
+               ?>
           </div>
-        </section>
-
+          </div>
+      </section>    
         <div class="px-4">
           <div class="card mb-3">
             <div class="row g-0 px-2">

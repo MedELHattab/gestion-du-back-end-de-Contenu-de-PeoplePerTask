@@ -29,7 +29,7 @@ require("cnx.php");
 
                 <ul class="sidebar_nav">
                     <li class="sidebar_item " style="width: 100%;">
-                        <a href="dashboard.html" class="sidebar_link"> <img src="img/1. overview.svg"
+                        <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg"
                                 alt="">Overview</a>
                     </li>
                     <li class="sidebar_item ">
