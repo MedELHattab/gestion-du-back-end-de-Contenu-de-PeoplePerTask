@@ -139,19 +139,46 @@ require("cnx.php");
                         <textarea class="form-control" id="description" name="description" required></textarea>
                     </div>
                     
-                    <div class="mb-3">
-                    <label for="Categorie_ID" class="form-label">Categorie_ID</label>
-                        <input type="text" class="form-control" id="Categorie_ID" name="Categorie_ID" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="SousCategorie_ID" class="form-label">SousCategorie_ID</label>
-                        <input type="text" class="form-control" id="SousCategorie_ID" name="SousCategorie_ID" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="User_ID" class="form-label">User_ID</label>
-                        <input type="text" class="form-control" id="User_ID" name="User_ID" required>
-                    </div>
+                    <div class="form-group">
+                        <label for="Categorie_Name">Categorie_Name:</label>
+                       <select name="Categorie_ID" id="#">
+                        <?php 
+                         $query = "SELECT * from categories";
+                         $result = mysqli_query($cnx, $query);
+                         foreach($result as $res){  ?>
+                            <option value="<?php echo $res['Categorie_ID']?>"><?php echo $res['Categorie_Name']?></option>
+                        <?php }?>
 
+                       </select>
+                </div>
+                <br>
+                <div class="form-group">
+                        <label for="SousCategorie_Name">SousCategorie_Name:</label>
+                       <select name="SousCategorie_ID" id="#">
+                        <?php 
+                         $query = "SELECT * from souscategories";
+                         $result = mysqli_query($cnx, $query);
+                         foreach($result as $res){  ?>
+                            <option value="<?php echo $res['SousCategorie_ID']?>"><?php echo $res['SousCategorie_Name']?></option>
+                        <?php }?>
+
+                       </select>
+                </div>
+                <br>
+                <div class="form-group">
+                        <label for="Username">User Name:</label>
+                        <br>
+                       <select name="User_ID" id="#">
+                        <?php 
+                         $query = "SELECT * from users";
+                         $result = mysqli_query($cnx, $query);
+                         foreach($result as $res){  ?>
+                            <option value="<?php echo $res['User_ID']?>"><?php echo $res['Username']?></option>
+                        <?php }?>
+
+                       </select>
+                </div>
+<br>
                     <button type="submit" class="btn btn-primary">Add Project</button>
                 </form>
             </div>
@@ -165,17 +192,21 @@ require("cnx.php");
                             <th>Project_ID</th>
                             <th>Title</th>  
                             <th>Project_Description</th> 
-                            
-                            <th>Categorie_ID</th>
-                            <th>SousCategorie_ID</th>
-                            <th>User_ID</th>
+                            <th>Categorie_Name</th>
+                            <th>SousCategorie_Name</th>
+                            <th>Username</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query = "select * from projects";
+                        $query =  " SELECT p.*, C.Categorie_Name, U.Username, souscategories.SousCategorie_Name 
+                        FROM projects p 
+                        INNER JOIN categories C ON p.Categorie_ID = C.Categorie_ID
+                        INNER JOIN users U ON U.User_ID = p.User_ID
+                        INNER JOIN souscategories ON p.SousCategorie_ID = souscategories.SousCategorie_ID";
+                        
                         $result = mysqli_query($cnx, $query);
                         if (!$result) {
                             die("query faild" . mysqli_error());
@@ -194,15 +225,15 @@ require("cnx.php");
                                         <?php echo $row['Project_Description']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['Categorie_ID']; ?>
+                                        <?php echo $row['Categorie_Name']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['SousCategorie_ID']; ?>
+                                        <?php echo $row['SousCategorie_Name']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['User_ID']; ?>
+                                        <?php echo $row['Username']; ?>
                                     </td>
-                                    <td><a href="#" class="btn btn-success">Update</a></td>
+                                    <td><a href = "update_project.php?id=<?php echo $row['Project_ID'];?>" class = "btn btn-info">Update</a></td>
                                     <td><a href="#" class="btn btn-danger">Delete</a></td>
                                 </tr>
                                 <?php
@@ -219,6 +250,8 @@ require("cnx.php");
             
         </div>
     </div>
+ 
+
 <script>
 $(document).ready(function () {
 $(".btn-danger").click(function () {

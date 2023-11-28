@@ -137,11 +137,19 @@ require("cnx.php");
                         <label for="Competances" class="form-label">Competances</label>
                         <input type="text" class="form-control" id="Competances" name="Competances" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="User_ID" class="form-label">User_ID</label>
-                        <input type="text" class="form-control" id="User_ID" name="User_ID" required>
-                    </div>
+                    <div class="form-group">
+                        <label for="Username">User Name:</label>
+                       <select name="User_ID" id="#">
+                        <?php 
+                         $query = "SELECT * from users";
+                         $result = mysqli_query($cnx, $query);
+                         foreach($result as $res){  ?>
+                            <option value="<?php echo $res['User_ID']?>"><?php echo $res['Username']?></option>
+                        <?php }?>
 
+                       </select>
+                </div>
+<br>
                     <button type="submit" class="btn btn-primary">Add Freelancer</button>
                 </form>
             </div>
@@ -155,14 +163,14 @@ require("cnx.php");
                             <th>Freelancer_ID</th>
                             <th>Freelancer_Name</th>
                             <th>Competances</th>
-                            <th>User_ID</th>
+                            <th>Username</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query = "select * from freelancers";
+                        $query = "SELECT freelancers.*, U.Username FROM freelancers INNER JOIN users U ON freelancers.User_ID = U.User_ID";
                         $result = mysqli_query($cnx, $query);
                         if (!$result) {
                             die("query faild" . mysqli_error());
@@ -181,9 +189,10 @@ require("cnx.php");
                                         <?php echo $row['Competances']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['User_ID']; ?>
+                                        <?php echo $row['Username']; ?>
                                     </td>
-                                    <td><a href="#" class="btn btn-success">Update</a></td>
+
+                                    <td><a href = "update_freelancer.php?id=<?php echo $row['Freelancer_ID'];?>" class = "btn btn-info">Update</a></td>
                                     <td><a href="#" class="btn btn-danger">Delete</a></td>
                                 </tr>
                                 <?php

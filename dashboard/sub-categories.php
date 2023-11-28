@@ -149,14 +149,14 @@ require("cnx.php");
                         <tr>
                             <th>SousCategorie_ID</th>
                             <th>SousCategorie_Name</th>  
-                            <th>Categorie_ID</th> 
+                            <th>Categorie_Name</th> 
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query = "select * from souscategories";
+                        $query = "SELECT souscategories.*, C.Categorie_Name FROM souscategories INNER JOIN categories C ON souscategories.Categorie_ID = C.Categorie_ID";
                         $result = mysqli_query($cnx, $query);
                         if (!$result) {
                             die("query faild" . mysqli_error());
@@ -172,7 +172,7 @@ require("cnx.php");
                                         <?php echo $row['SousCategorie_Name']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['Categorie_ID']; ?>
+                                        <?php echo $row['Categorie_Name']; ?>
                                     </td>
                                     <td><a href="#" class="btn btn-success">Update</a></td>
                                     <td><a href="#" class="btn btn-danger">Delete</a></td>

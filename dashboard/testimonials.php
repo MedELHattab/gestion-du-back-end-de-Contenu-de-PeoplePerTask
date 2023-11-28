@@ -133,11 +133,19 @@ require("cnx.php");
                         <label for="Comment" class="form-label">Comment</label>
                         <textarea class="form-control" id="Comment" name="Comment" required></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="User_ID" class="form-label">User_ID</label>
-                        <input type="text" class="form-control" id="User_ID" name="User_ID" required>
-                    </div>
+                    <div class="form-group">
+                        <label for="Username">User Name:</label>
+                       <select name="User_ID" id="#">
+                        <?php 
+                         $query = "SELECT * from users";
+                         $result = mysqli_query($cnx, $query);
+                         foreach($result as $res){  ?>
+                            <option value="<?php echo $res['User_ID']?>"><?php echo $res['Username']?></option>
+                        <?php }?>
 
+                       </select>
+                </div>
+<br>
                     <button type="submit" class="btn btn-primary">Add Testimonial</button>
                 </form>
             </div>
@@ -149,14 +157,14 @@ require("cnx.php");
                         <tr>
                             <th>Testimonial_ID</th>
                             <th>Comment</th>
-                            <th>User_ID</th>
+                            <th>Username</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query = "select * from testimonials";
+                        $query = "SELECT testimonials.*, U.Username FROM testimonials INNER JOIN users U ON testimonials.User_ID = U.User_ID";
                         $result = mysqli_query($cnx, $query);
                         if (!$result) {
                             die("query faild" . mysqli_error());
@@ -172,7 +180,7 @@ require("cnx.php");
                                         <?php echo $row['Comment']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['User_ID']; ?>
+                                        <?php echo $row['Username']; ?>
                                     </td>
 
                                     <td><a href="#" class="btn btn-success">Update</a></td>

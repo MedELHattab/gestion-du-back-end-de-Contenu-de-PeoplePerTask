@@ -166,7 +166,7 @@ require("cnx.php");
                                     <td>
                                         <?php echo $row['Categorie_Name']; ?>
                                     </td>
-                                    <td><a href="#" class="btn btn-success">Update</a></td>
+                                    <td><a href = "update_categorie.php?id=<?php echo $row['Categorie_ID'];?>" class = "btn btn-info">Update</a></td>
                                     <td><a href="#" class="btn btn-danger">Delete</a></td>
                                 </tr>
                                 <?php

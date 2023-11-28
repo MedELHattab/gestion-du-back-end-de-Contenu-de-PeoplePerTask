@@ -117,100 +117,91 @@ require("cnx.php");
 
 
             <section class="Agents px-4">
-            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
-                               data-bs-target="#exampleModalCenter1"> Add user </button>
-                               <table id="yourTableID" class="agent table align-middle bg-white">
+    <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModalCenter1">Add user</button>
 
-                    <thead class="bg-light">
-                        <tr>
-                            <th>User_ID</th>
-                            <th>Username</th>
-                            <th>Hashed_Password</th>
-                            <th>Email_Address</th>
-                            <th>Phone</th>
-                            <th>Region_id</th>
-                            <th>Ville_id</th>   
-                            <th>Update</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query = "select * from users";
-                        $result = mysqli_query($cnx, $query);
-                        if (!$result) {
-                            die("query faild" . mysqli_error());
-                        } else {
-                            while ($row = mysqli_fetch_assoc($result)) {
-
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $row['User_ID']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['Username']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['Hashed_Password']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['Email_Address']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['Phone']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['region_id']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['ville_id']; ?>
-                                    </td>
-                                    <td><a href="#" class="btn btn-success">Update</a></td>
-                                    <td><a href="#" class="btn btn-danger">Delete</a></td>
-                                </tr>
-                                <?php
-                            }
-                        }
-
-                        ?>
-
-                    </tbody>
-                </table>
-
-
-            </section>
-           
+    <!-- Add Update User Modal -->
+    <div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal content goes here -->
+            </div>
         </div>
     </div>
-    <script>
-$(document).ready(function () {
-$(".btn-danger").click(function () {
-var User_ID = $(this).closest("tr").find("td:first-child").text();
 
-        $.ajax({
-            url: "delete.php",
-            type: "GET",
-            data: { User_ID: User_ID },
-            success: function (response) {
-                if (response === "success") {
-                    // Refresh the page or update the table as needed
-                    location.reload();
-                } else {
-                    alert("Error deleting user");
+    <table id="yourTableID" class="agent table align-middle bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>User_ID</th>
+                <th>Username</th>
+                <th>Hashed_Password</th>
+                <th>Email_Address</th>
+                <th>Phone</th>
+                <th>Region_id</th>
+                <th>Ville_id</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $query = "select * from users";
+            $result = mysqli_query($cnx, $query);
+            if (!$result) {
+                die("query failed" . mysqli_error());
+            } else {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['User_ID']; ?></td>
+                        <td><?php echo $row['Username']; ?></td>
+                        <td><?php echo $row['Hashed_Password']; ?></td>
+                        <td><?php echo $row['Email_Address']; ?></td>
+                        <td><?php echo $row['Phone']; ?></td>
+                        <td><?php echo $row['region_id']; ?></td>
+                        <td><?php echo $row['ville_id']; ?></td>
+                        <td>
+                            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateUserModal">
+                                Update
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    <?php
                 }
             }
+            ?>
+        </tbody>
+    </table>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $(".btn-danger").click(function () {
+            var User_ID = $(this).closest("tr").find("td:first-child").text();
+
+            $.ajax({
+                url: "delete.php",
+                type: "GET",
+                data: { User_ID: User_ID },
+                success: function (response) {
+                    if (response === "success") {
+                        // Refresh the page or update the table as needed
+                        location.reload();
+                    } else {
+                        alert("Error deleting user");
+                    }
+                }
+            });
         });
     });
-});
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-        <script>
-$(document).ready(function() {
-    $('#yourTableID').DataTable();
-});
+
+<script>
+    $(document).ready(function () {
+        $('#yourTableID').DataTable();
+    });
 </script>
 
     <script src="dashboard.js"></script>
