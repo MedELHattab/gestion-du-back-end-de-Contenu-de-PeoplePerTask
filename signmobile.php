@@ -43,9 +43,9 @@
         <div class="sign-up">
             <h2>Create Account</h2>
             <div class="icons">
-                <img src="/images/fb.svg">
-                <img src="/images/chrome.svg">
-                <img src="/images/in.svg"> 
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                <i class="fa fa-chrome" aria-hidden="true"></i>
+                <i class="fa fa-github" aria-hidden="true"></i> 
             </div>
             <span>or use your email for registration</span>
             <form class="w-50">

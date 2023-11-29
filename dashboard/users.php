@@ -136,15 +136,18 @@ require("cnx.php");
                 <th>Hashed_Password</th>
                 <th>Email_Address</th>
                 <th>Phone</th>
-                <th>Region_id</th>
-                <th>Ville_id</th>
+                <th>Region</th>
+                <th>City</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $query = "select * from users";
+            $query = " SELECT users.*, R.region, V.ville
+            FROM users
+            INNER JOIN region R ON users.region_id = R.id
+            INNER JOIN ville V ON users.ville_id = V.id";
             $result = mysqli_query($cnx, $query);
             if (!$result) {
                 die("query failed" . mysqli_error());
@@ -157,8 +160,8 @@ require("cnx.php");
                         <td><?php echo $row['Hashed_Password']; ?></td>
                         <td><?php echo $row['Email_Address']; ?></td>
                         <td><?php echo $row['Phone']; ?></td>
-                        <td><?php echo $row['region_id']; ?></td>
-                        <td><?php echo $row['ville_id']; ?></td>
+                        <td><?php echo $row['region']; ?></td>
+                        <td><?php echo $row['ville']; ?></td>
                         <td>
                             <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateUserModal">
                                 Update

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/signInMobile.css">
+    <link rel="stylesheet" href="css/sign.css">
     <link rel="stylesheet" href="css/header_footer.css">
     <title>PeoplePerTask</title>
 </head>
@@ -26,7 +26,7 @@
                     <a class="nav-link" href="about.html">About</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Searsh</a>
+                    <a class="nav-link active" aria-current="page" href="search.html">Searsh</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="contact.html">Contact</a>
@@ -40,30 +40,76 @@
             </div>
           </nav>
     </header>
-    <section class="container-sign" >
+         
+    <section class="container-sign" id="main">
+   
+
+        <div class="sign-up">
+            <h2>Create Account</h2>
+            <div class="icons">
+            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            <i class="fa fa-chrome" aria-hidden="true"></i>
+            <i class="fa fa-github" aria-hidden="true"></i> 
+            </div>
+            <span>or use your email for registration</span>
+            <form class="w-50" action="dashboard/insert.php" method="post">
+                <div class="mb-3">
+                    <label for="Name" style="font-size: 12px;" class="form-label">Name</label>
+                    <input type="text" style="width: 100%;" class="form-control border-bottom border-0 border" id="Name" name="username" aria-describedby="NameHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label" style="font-size: 12px;">Email</label>
+                    <input type="email" style="width: 100%;" class="form-control border-bottom border-0 border" id="exampleInputEmail1" name="Email_Address" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPhone" class="form-label" style="font-size: 12px;">Phone</label>
+                    <input type="text" style="width: 100%;" class="form-control border-bottom border-0 border" id="exampleInputPhone" name="Phone" aria-describedby="PhoneHelp" required>
+
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label" style="font-size: 12px;">Password</label>
+                    <input type="password" style="width: 100%;" class="form-control border-bottom border-0 border" id="exampleInputPassword1" name="Hashed_Password" required>
+                </div>
+                <span class="mobile"><a href="signInMobile.php">sign in</a></span>
+                <button type="submit" class="btn text-white rounded-pill btn-outline-primary" style="background-color: #3498DB; width:164px; height:39px" name="submit" id="submit">Submit</button> 
+            </form>
+        </div>
         <div class="sign-in">
             <h2>Sign in</h2>
             <div class="icons">
-                <img src="/images/fb.svg">
-                <img src="/images/chrome.svg">
-                <img src="/images/in.svg"> 
+            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            <i class="fa fa-chrome" aria-hidden="true"></i>
+            <i class="fa fa-github" aria-hidden="true"></i> 
             </div>
             <span>or use your account</span>
-            <form class="w-50">
-                <div class="mb-3">
-                    <label for="exampleInputEmail2" class="form-label" style="font-size: 12px;">Email</label>
-                    <input type="email" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputEmail2" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword2" class="form-label" style="font-size: 12px;">Password</label>
-                    <input type="password" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputPassword2">
-                </div>
-                <span style="display: block;">Forgot your password?</span>
-                <span class="mobile"><a href="signmobile.html">sign up</a></span>
-                <button type="submit" class="btn text-white rounded-pill btn-outline-primary" style="background-color: #3498DB; width:164px; height:39px">Submit</button> 
-            </form>
+            <form class="w-50" method="post" action="dashboard/checkIN.php">
+    <div class="mb-3">
+        <label for="exampleInputEmail2" class="form-label" style="font-size: 12px;">Email</label>
+        <input type="email" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputEmail2" name="Email" aria-describedby="emailHelp" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword2" class="form-label" style="font-size: 12px;">Password</label>
+        <input type="password" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputPassword2" name="Hashed_Password" required>
+    </div>
+    <span style="display: block;">Forgot your password?</span>
+    <span class="mobile"><a href="signmobile.php">sign up</a></span>
+    <button type="submit" name="submit" class="btn text-white rounded-pill btn-outline-primary mt-3" style="background-color: #3498DB; width:164px; height:39px">Submit</button> 
+</form>
         </div>
-     
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-left">
+                    <h2>Welcome Back!</h2>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button type="button" class="btn text-white rounded-pill btn-outline-primary"  style="width:164px; height:39px" id="signIn">Sign in</button>
+                </div>
+                <div class="overlay-right">
+                    <h2>Hello, Friend!</h2>
+                    <p>Enter your personal details and start your journey with us</p>
+                    <button type="button" class="btn text-white rounded-pill btn-outline-primary" style="width:164px; height:39px" id="signUp">Sign up</button>
+                </div>
+            </div>
+        </div>
     </section>
     
 
