@@ -45,7 +45,7 @@
           <div class="col-md-6 mb-4">
             <h2 class="style" style="color: #6298f3;">Contact <span class="style" style="color: #f39c12;">Us</span></h2>
             <p>Feel free to contact us any time. We will get back to you as soon as we can!</p>
-            <form action="/contact" method="post">
+            <form action="validation.php" method="post">
               <div class="form-group py-3">
                 <label for="name">Name<span class="span-validation ps-3 text-danger" id="name-error"></span></label>
                 <input type="text" class="form-control border-bottom border-0 border py-3" id="name" onkeyup="validateName()" name="name" placeholder="Enter your name">
