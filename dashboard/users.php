@@ -1,5 +1,9 @@
 <?php
 require("cnx.php");
+session_start();
+if (isset($_SESSION["id"])) {
+  unset($_SESSION['id']); 
+}
 ?>
 
 
@@ -118,7 +122,7 @@ require("cnx.php");
 
             <section class="Agents px-4">
     <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModalCenter1">Add user</button>
-
+   
     <!-- Add Update User Modal -->
     <div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -127,7 +131,14 @@ require("cnx.php");
             </div>
         </div>
     </div>
-
+    <div> 
+    <form class="my-3" action="upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
+</form>
+</div>
+   
     <table id="yourTableID" class="agent table align-middle bg-white">
         <thead class="bg-light">
             <tr>

@@ -13,23 +13,23 @@
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-              <a class="navbar-brand" href="index.html"><img src="images/PeoplePerTask.png" style="width: 12rem;" alt=""></a>
+              <a class="navbar-brand" href="index.php"><img src="images/PeoplePerTask.png" style="width: 12rem;" alt=""></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa-solid fa-bars" style="color: #6298f3;"></i>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0 auto;">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="search.html">Searsh</a>
+                    <a class="nav-link active" aria-current="page" href="search.php">Searsh</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                   </li>
                 </ul>
                 <form class="d-flex nav_btn" role="search">
@@ -83,18 +83,18 @@
             </div>
             <span>or use your account</span>
             <form class="w-50" method="post" action="dashboard/checkIN.php">
-    <div class="mb-3">
-        <label for="exampleInputEmail2" class="form-label" style="font-size: 12px;">Email</label>
-        <input type="email" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputEmail2" name="Email" aria-describedby="emailHelp" required>
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword2" class="form-label" style="font-size: 12px;">Password</label>
-        <input type="password" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputPassword2" name="Hashed_Password" required>
-    </div>
-    <span style="display: block;">Forgot your password?</span>
-    <span class="mobile"><a href="signmobile.php">sign up</a></span>
-    <button type="submit" name="submit" class="btn text-white rounded-pill btn-outline-primary mt-3" style="background-color: #3498DB; width:164px; height:39px">Submit</button> 
-</form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail2" class="form-label" style="font-size: 12px;">Email</label>
+                    <input type="email" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputEmail2" name="Email" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword2" class="form-label" style="font-size: 12px;">Password</label>
+                    <input type="password" style="width: 80%;" class="form-control border-bottom border-0 border" id="exampleInputPassword2" name="Hashed_Password" required>
+                </div>
+                <a href="forgot_password.php" style="display: block;">Forgot your password?</a>
+                <span class="mobile"><a href="signmobile.php">sign up</a></span>
+                <button type="submit" class="btn text-white rounded-pill btn-outline-primary mt-3" style="background-color: #3498DB; width:164px; height:39px" name="submit">Submit</button> 
+            </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -151,7 +151,7 @@
                     <div class="col-xl-4 col-lg-4 mb-3">
                         <div class="footer-widget">
                             <div class="footer-logo">
-                                <a href="index.html"><img src="images/PeoplePerTask.png" class="img-fluid" alt="logo"></a>
+                                <a href="index.php"><img src="images/PeoplePerTask.png" class="img-fluid" alt="logo"></a>
                             </div>
                             <div class="footer-text">
                                 <p>At PeoplePerTask, we foster a thriving community of skilled professionals and businesses, seamlessly facilitating the connection between talent and tasks. With a commitment to excellence and user satisfaction, our platform serves as a dynamic hub for collaboration, enabling individuals and companies to achieve their goals efficiently and effectively.</p>
@@ -170,7 +170,7 @@
                                 <h3>Links</h3>
                             </div>
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="index.php">Home</a></li>
                                 <li><a href="#">about</a></li>
                                 <li><a href="#">Searsh</a></li>
                                 <li><a href="#">Profil</a></li>

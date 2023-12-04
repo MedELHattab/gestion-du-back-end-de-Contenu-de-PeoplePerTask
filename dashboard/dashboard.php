@@ -1,4 +1,9 @@
-
+<?php
+session_start();
+if (!isset($_SESSION["id"])) {
+  header("Location:../sign.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,7 +58,11 @@
                 </li>
                 <li class="sidebar_item ">
                   <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
-              </li>
+                </li>
+                <li class="sidebar_item">
+    <span><a href="logout.php" class="sidebar_link text-danger"><img src="img/articles.svg" alt="">LOG OUT</a></span>
+</li>
+
 
             </ul>
             <div class="line"></div>
