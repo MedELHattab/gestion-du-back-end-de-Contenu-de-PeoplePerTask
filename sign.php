@@ -70,6 +70,12 @@
                     <label for="exampleInputPassword1" class="form-label" style="font-size: 12px;">Password</label>
                     <input type="password" style="width: 100%;" class="form-control border-bottom border-0 border" id="exampleInputPassword1" name="Hashed_Password" required>
                 </div>
+                <div class="my-3">
+                    <input type="radio" id="visitor" name="role" value="visitor">
+                    <label for="visitor">visitor</label><br>
+                    <input type="radio" id="freelancer" name="role" value="freelancer">
+                    <label for="freelancer">freelancer</label><br>    
+                </div>
                 <span class="mobile"><a href="signInMobile.php">sign in</a></span>
                 <button type="submit" class="btn text-white rounded-pill btn-outline-primary" style="background-color: #3498DB; width:164px; height:39px" name="submit" id="submit">Submit</button> 
             </form>

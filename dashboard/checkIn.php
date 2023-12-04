@@ -24,10 +24,10 @@ if (isset($_POST['submit'])) {
                 $_SESSION['Phone'] = $row['Phone'];
                 $_SESSION['id'] = $row['User_ID'];
                 setcookie('user_id', $row['User_ID'], time() + (86400 * 30), "/");
-                header("Location: card.php");
+                header("Location: dashboard.php");
                 exit();
             } else {
-                header("Location: ../index.php");
+                header("Location: dashboard.php");
             }
         } else {
             echo "<div class='message'>
