@@ -1,0 +1,80 @@
+body {
+    background: white;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ff5e14
+}
+
+.profile-button {
+    background: #3498DB;
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #ff5e14;
+}
+
+.profile-button:focus {
+    background: #ff5e14;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #ff5e14;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #ff5e14;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #ff5e14;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #ff5e14
+}
+
+/* Styles for dark mode */
+.dark-mode {
+    background-color: #121212;
+    /* Dark background color */
+    color: #ffffff;
+    /* Light text color for better readability */
+}
+
+/* Modify specific elements for dark mode */
+.dark-mode a {
+    color: #ffffff;
+    /* Links color in dark mode */
+}
+
+/* Footer section styles for dark mode */
+.dark-mode .cta-text span {
+    color: #ffffff;
+}
+
+.dark-mode .footer-section p {
+    color: #ffffff;
+    /* Dark text color for better readability */
+}
+
+.dark-mode .footer-section ul li a {
+    color: #ffffff;
+}
+.dark-mode .faq-question.py-3{
+    color: #ffffff;
+}
+.dark-mode .faq-answer{
+    color: #ffffff;
+}
+
+/* End of dark mode styles */

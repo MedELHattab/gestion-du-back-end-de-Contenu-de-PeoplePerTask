@@ -58,7 +58,7 @@ $users = mysqli_fetch_assoc($userResult);
           } elseif ($users["role"] == 'visitor') {
             ?>
             <li class="sidebar_item">
-              <a href="../profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
+              <a href="../visitor_profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
             </li>
             <?php
           }
@@ -92,7 +92,7 @@ $users = mysqli_fetch_assoc($userResult);
           } elseif ($users["role"] == 'visitor') {
             ?>
             <li class="sidebar_item">
-              <a href="testimonials.php.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
+              <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
             </li>
             <?php
           }
@@ -118,9 +118,41 @@ $users = mysqli_fetch_assoc($userResult);
           }
           ?>
 
-          <li class="sidebar_item ">
-            <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
-          </li>
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
+            </li>
+            <?php
+          } elseif ($users["role"] == 'visitor') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
+            </li>
+            <?php
+          }
+          ?>
+
+
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+            </li>
+
+            <?php
+          } elseif ($users["role"] == 'freelancer') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+            </li>
+            <?php
+          }
+          ?>
+
+
           <li class="sidebar_item">
             <span><a href="logout.php" class="sidebar_link text-danger"><img src="img/articles.svg" alt="">LOG
                 OUT</a></span>

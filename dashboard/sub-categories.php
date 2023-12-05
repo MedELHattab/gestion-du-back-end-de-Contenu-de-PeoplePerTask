@@ -24,44 +24,141 @@ if (isset($_SESSION["id"])) {
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar" class="side">
-            <div class="h-100">
-                <div class="sidebar_logo d-flex align-items-end">
-                <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
-                    <img class="close align-self-start" src="img/close.svg" alt="">
-                </div>
+    <aside id="sidebar" class="side">
+      <div class="h-100">
+        <div class="sidebar_logo d-flex align-items-end">
+          <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
+          <!-- <a href="#" class="nav-link text-white-50">Dashboard</a> -->
+          <img class="close align-self-start" src="img/close.svg" alt="">
+        </div>
 
-                <ul class="sidebar_nav">
-                    <li class="sidebar_item " style="width: 100%;">
-                        <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg"
-                                alt="">Overview</a>
-                    </li>
-                    <li class="sidebar_item ">
-                        <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">Users</a>
-                    </li>
-                    <li class="sidebar_item">
-                        <a href="freelancers.php" class="sidebar_link"> <img src="img/task.svg" alt="">Freelancers</a>
-                    </li>
-                    <li class="sidebar_item">
-                        <a href="testimonials.php" class="sidebar_link"><img src="img/agent.svg" alt="">Testimonials</a>
-                    </li>
-                    <li class="sidebar_item ">
-                        <a href="categories.php" class="sidebar_link"><img src="img/agent.svg" alt="">Categories</a>
-                    </li>
-                    <li class="sidebar_item active">
-                        <a href="sub-categories.php" class="sidebar_link"><img src="img/articles.svg" alt="">Sub-categories</a>
-                    </li>
-                    <li class="sidebar_item ">
-                        <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
-                    </li>
+        <ul class="sidebar_nav">
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item active" style="width: 100%;">
+              <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg" alt="">Overview</a>
+            </li>
+          <?php } ?>
 
-                </ul>
-                <div class="line"></div>
-                <a href="#" class="sidebar_link"><img src="img/settings.svg" alt="">Settings</a>
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item">
+              <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">Users</a>
+            </li>
+            <?php
+          } elseif ($users["role"] == 'visitor') {
+            ?>
+            <li class="sidebar_item">
+              <a href="../visitor_profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
+            </li>
+            <?php
+          }
+          ?>
 
 
-            </div>
-        </aside>
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item">
+              <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">freelancer</a>
+            </li>
+            <?php
+          } elseif ($users["role"] == 'freelancer') {
+            ?>
+            <li class="sidebar_item">
+              <a href="../profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
+            </li>
+            <?php
+          }
+          ?>
+
+
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item">
+              <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
+            </li>
+            <?php
+          } elseif ($users["role"] == 'visitor') {
+            ?>
+            <li class="sidebar_item">
+              <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
+            </li>
+            <?php
+          }
+          ?>
+
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="categories.php" class="sidebar_link"><img src="img/agent.svg" alt="">Categories</a>
+            </li>
+            <?php
+          }
+          ?>
+
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item">
+              <a href="sub-categories.php" class="sidebar_link"><img src="img/articles.svg" alt="">Sub-categories</a>
+            </li>
+            <?php
+          }
+          ?>
+
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
+            </li>
+            <?php
+          } elseif ($users["role"] == 'visitor') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
+            </li>
+            <?php
+          }
+          ?>
+
+
+          <?php
+          if ($users["role"] == 'admin') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+            </li>
+
+            <?php
+          } elseif ($users["role"] == 'freelancer') {
+            ?>
+            <li class="sidebar_item ">
+              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+            </li>
+            <?php
+          }
+          ?>
+
+
+          <li class="sidebar_item">
+            <span><a href="logout.php" class="sidebar_link text-danger"><img src="img/articles.svg" alt="">LOG
+                OUT</a></span>
+          </li>
+
+
+        </ul>
+        <div class="line"></div>
+        <a href="#" class="sidebar_link"><img src="img/settings.svg" alt="">Settings</a>
+
+
+      </div>
+    </aside>
         <div class="main">
             <nav class="navbar justify-content-space-between pe-4 ps-2">
                 <button class="btn open">
