@@ -5,11 +5,10 @@ if (!isset($_SESSION["id"])) {
   exit();
 }
 
-include("cnx.php"); // Assuming this file contains your database connection
-
+include("cnx.php"); 
 $userId = $_SESSION["id"];
-
-// Fetch user information
+$users = mysqli_query($cnx, "SELECT * FROM users");
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
 $userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
 $users = mysqli_fetch_assoc($userResult);
 ?>
@@ -212,7 +211,7 @@ $users = mysqli_fetch_assoc($userResult);
             </div>
           </div>
           <div class="inline"></div>
-          <div class="name">lahcen Admin</div>
+          <div class="name"><?php echo htmlspecialchars($username); ?></div>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a href="#" class="nav-icon pe-md-0 position-relative" data-bs-toggle="dropdown">

@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (!isset($_SESSION["id"])) {
+  header("Location:../sign.php");
+  exit();
+}
+
+include("./dashboard/cnx.php"); 
+$userId = $_SESSION["id"];
+$users = mysqli_query($cnx, "SELECT * FROM users");
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
+$userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
+// $users = mysqli_fetch_assoc($userResult);
+// $email = mysqli_fetch_assoc($userResult)
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +72,7 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>John Doe</h4>
+                                    <h4><?php echo htmlspecialchars($username); ?></h4>
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
                                     <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
                                     <button class="btn btn-primary">Follow</button>

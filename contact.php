@@ -20,20 +20,20 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0 auto;">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="search.html">Search</a>
+                    <a class="nav-link active" aria-current="page" href="search.php">Search</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                   </li>
                 </ul>
                 <form class="d-flex nav_btn" role="search">
-                  <a href="sign.html" class="btn btn-primary">Connect</a>
+                  <a href="sign.php" class="btn btn-primary">Connect</a>
                 </form>
                 <i id="dark-mode-toggle" class="fas fa-moon ps-3"></i>
               </div>
@@ -120,7 +120,7 @@
                 <div class="col-xl-4 col-lg-4 mb-3">
                     <div class="footer-widget">
                         <div class="footer-logo">
-                            <a href="index.html"><img src="images/PeoplePerTask.png" class="img-fluid" alt="logo"></a>
+                            <a href="index.php"><img src="images/PeoplePerTask.png" class="img-fluid" alt="logo"></a>
                         </div>
                         <div class="footer-text">
                             <p>At PeoplePerTask, we foster a thriving community of skilled professionals and businesses, seamlessly facilitating the connection between talent and tasks. With a commitment to excellence and user satisfaction, our platform serves as a dynamic hub for collaboration, enabling individuals and companies to achieve their goals efficiently and effectively.</p>
@@ -139,10 +139,10 @@
                             <h3>Links</h3>
                         </div>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">about</a></li>
-                            <li><a href="search.html">Searsh</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="index.php">Home</a></li>
+                            <li><a href="about.php">about</a></li>
+                            <li><a href="search.php">Searsh</a></li>
+                            <li><a href="contact.php">Contact</a></li>
                         </ul>
                     </div>
                 </div>

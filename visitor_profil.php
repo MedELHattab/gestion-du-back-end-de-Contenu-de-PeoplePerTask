@@ -1,3 +1,25 @@
+<?php
+session_start();
+if (!isset($_SESSION["id"])) {
+  header("Location:../sign.php");
+  exit();
+}
+
+include("./dashboard/cnx.php");
+
+$userId = $_SESSION["id"];
+$query = "SELECT * FROM users WHERE User_ID = $userId";
+$result = mysqli_query($cnx, $query);
+
+if ($result) {
+  $user = mysqli_fetch_assoc($result);
+  $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
+  $loggedInEmail = isset($user['Email_Address']) ? htmlspecialchars($user['Email_Address']) : 'Default Email';
+} else {
+  $loggedInEmail = 'Default Email';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,8 +74,8 @@
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                         width="150px"
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                        class="font-weight-bold">Edogaru</span><span
-                        class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+                        class="font-weight-bold"><?php echo htmlspecialchars($username); ?></span><span
+                        class="text-black-50"><?php echo ($loggedInEmail); ?></span><span> </span></div>
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">
