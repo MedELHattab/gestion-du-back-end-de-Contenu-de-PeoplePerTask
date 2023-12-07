@@ -33,12 +33,12 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0 auto">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html"
+                <a class="nav-link active" aria-current="page" href="index.php"
                   >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" href="about.php">About</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#"
@@ -46,11 +46,11 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link" href="contact.php">Contact</a>
               </li>
             </ul>
             <form class="d-flex nav_btn" role="search">
-              <a href="sign.html" class="btn btn-primary">Connect</a>
+              <a href="sign.php" class="btn btn-primary">Connect</a>
             </form>
             <i id="dark-mode-toggle" class="fas fa-moon ps-3 "></i>
           </div>
@@ -180,7 +180,7 @@
             <div class="col-xl-4 col-lg-4 mb-3">
               <div class="footer-widget">
                 <div class="footer-logo">
-                  <a href="index.html"
+                  <a href="index.php"
                     ><img
                       src="images/PeoplePerTask.png"
                       class="img-fluid"
@@ -213,9 +213,9 @@
                 </div>
                 <ul>
                   <li><a href="index.html">Home</a></li>
-                  <li><a href="#">about</a></li>
-                  <li><a href="#">Searsh</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <li><a href="about.php">about</a></li>
+                  <li><a href="search.php">Searsh</a></li>
+                  <li><a href="contact.php">Contact</a></li>
                 </ul>
               </div>
             </div>

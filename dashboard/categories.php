@@ -1,11 +1,17 @@
 <?php
-require("cnx.php");
 session_start();
-if (isset($_SESSION["id"])) {
-  unset($_SESSION['id']); 
+if(!isset($_SESSION["id"])) {
+    header("Location:../sign.php");
+    exit();
 }
-?>
 
+include("cnx.php");
+$userId = $_SESSION["id"];
+// $users = mysqli_query($cnx, "SELECT * FROM users");
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
+$userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
+$users = mysqli_fetch_assoc($userResult);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,141 +30,146 @@ if (isset($_SESSION["id"])) {
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar" class="side">
-      <div class="h-100">
-        <div class="sidebar_logo d-flex align-items-end">
-          <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
-          <!-- <a href="#" class="nav-link text-white-50">Dashboard</a> -->
-          <img class="close align-self-start" src="img/close.svg" alt="">
-        </div>
+        <aside id="sidebar" class="side">
+            <div class="h-100">
+                <div class="sidebar_logo d-flex align-items-end">
+                    <img src="img/PeoplePerTask.png" alt="logo" style="width: 75%;">
+                    <!-- <a href="#" class="nav-link text-white-50">Dashboard</a> -->
+                    <img class="close align-self-start" src="img/close.svg" alt="">
+                </div>
 
-        <ul class="sidebar_nav">
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item active" style="width: 100%;">
-              <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg" alt="">Overview</a>
-            </li>
-          <?php } ?>
+                <ul class="sidebar_nav" style="max-height: 80vh; overflow-y: auto;">
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item active" style="width: 100%;">
+                            <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg" alt="">Overview</a>
+                        </li>
+                    <?php } ?>
 
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item">
-              <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">Users</a>
-            </li>
-            <?php
-          } elseif ($users["role"] == 'visitor') {
-            ?>
-            <li class="sidebar_item">
-              <a href="../visitor_profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
-            </li>
-            <?php
-          }
-          ?>
-
-
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item">
-              <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">freelancer</a>
-            </li>
-            <?php
-          } elseif ($users["role"] == 'freelancer') {
-            ?>
-            <li class="sidebar_item">
-              <a href="../profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
-            </li>
-            <?php
-          }
-          ?>
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">Users</a>
+                        </li>
+                        <?php
+                    } elseif($users["role"] == 'visitor') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="../visitor_profil.php" class="sidebar_link"> <img src="img/agents.svg"
+                                    alt="">profil</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
 
 
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item">
-              <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
-            </li>
-            <?php
-          } elseif ($users["role"] == 'visitor') {
-            ?>
-            <li class="sidebar_item">
-              <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
-            </li>
-            <?php
-          }
-          ?>
-
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item ">
-              <a href="categories.php" class="sidebar_link"><img src="img/agent.svg" alt="">Categories</a>
-            </li>
-            <?php
-          }
-          ?>
-
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item">
-              <a href="sub-categories.php" class="sidebar_link"><img src="img/articles.svg" alt="">Sub-categories</a>
-            </li>
-            <?php
-          }
-          ?>
-
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item ">
-              <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
-            </li>
-            <?php
-          } elseif ($users["role"] == 'visitor') {
-            ?>
-            <li class="sidebar_item ">
-              <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
-            </li>
-            <?php
-          }
-          ?>
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="freelancers.php" class="sidebar_link"> <img src="img/agents.svg" alt="">freelancer</a>
+                        </li>
+                        <?php
+                    } elseif($users["role"] == 'freelancer') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="../profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
 
 
-          <?php
-          if ($users["role"] == 'admin') {
-            ?>
-            <li class="sidebar_item ">
-              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
-            </li>
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg"
+                                    alt="#">Testimonial</a>
+                        </li>
+                        <?php
+                    } elseif($users["role"] == 'visitor') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg"
+                                    alt="#">Testimonial</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
 
-            <?php
-          } elseif ($users["role"] == 'freelancer') {
-            ?>
-            <li class="sidebar_item ">
-              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
-            </li>
-            <?php
-          }
-          ?>
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item ">
+                            <a href="categories.php" class="sidebar_link"><img src="img/agent.svg" alt="">Categories</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item">
+                            <a href="sub-categories.php" class="sidebar_link"><img src="img/articles.svg"
+                                    alt="">Sub-categories</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item ">
+                            <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
+                        </li>
+                        <?php
+                    } elseif($users["role"] == 'visitor') {
+                        ?>
+                        <li class="sidebar_item ">
+                            <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
 
 
-          <li class="sidebar_item">
-            <span><a href="logout.php" class="sidebar_link text-danger"><img src="img/articles.svg" alt="">LOG
-                OUT</a></span>
-          </li>
+                    <?php
+                    if($users["role"] == 'admin') {
+                        ?>
+                        <li class="sidebar_item ">
+                            <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+                        </li>
+
+                        <?php
+                    } elseif($users["role"] == 'freelancer') {
+                        ?>
+                        <li class="sidebar_item ">
+                            <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
 
 
-        </ul>
-        <div class="line"></div>
-        <a href="#" class="sidebar_link"><img src="img/settings.svg" alt="">Settings</a>
+                    <li class="sidebar_item">
+                        <span><a href="logout.php" class="sidebar_link text-danger"><img src="img/articles.svg"
+                                    alt="">LOG
+                                OUT</a></span>
+                    </li>
 
 
-      </div>
-    </aside>
+                </ul>
+                <div class="line"></div>
+                <a href="#" class="sidebar_link"><img src="img/settings.svg" alt="">Settings</a>
+
+
+            </div>
+        </aside>
         <div class="main">
             <nav class="navbar justify-content-space-between pe-4 ps-2">
                 <button class="btn open">
@@ -199,7 +210,9 @@ if (isset($_SESSION["id"])) {
                         </div>
                     </div>
                     <div class="inline"></div>
-                    <div class="name">lahcen Admin</div>
+                    <div class="name">
+                        <?php echo htmlspecialchars($username); ?>
+                    </div>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-icon pe-md-0 position-relative" data-bs-toggle="dropdown">
@@ -218,34 +231,38 @@ if (isset($_SESSION["id"])) {
 
 
             <section class="Agents px-4">
-            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addcategoriesModal">
-    Add categories
-</button>
-<div class="modal fade" id="addcategoriesModal" tabindex="-1" aria-labelledby="addcategoriesModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addcategoriesModalLabel">Add New categories</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addcategoriesForm">
-                    <div class="mb-3">
-                        <label for="Categorie_Name" class="form-label">Categorie_Name</label>
-                        <textarea class="form-control" id="Categorie_Name" name="Categorie_Name" required></textarea>
+                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
+                    data-bs-target="#addcategoriesModal">
+                    Add categories
+                </button>
+                <div class="modal fade" id="addcategoriesModal" tabindex="-1" aria-labelledby="addcategoriesModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addcategoriesModalLabel">Add New categories</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addcategoriesForm">
+                                    <div class="mb-3">
+                                        <label for="Categorie_Name" class="form-label">Categorie_Name</label>
+                                        <textarea class="form-control" id="Categorie_Name" name="Categorie_Name"
+                                            required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add categories</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add categories</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
                 <table class="agent table align-middle bg-white">
 
                     <thead class="bg-light">
                         <tr>
                             <th>Categorie_ID</th>
-                            <th>Categorie_Name</th>   
+                            <th>Categorie_Name</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
@@ -254,10 +271,10 @@ if (isset($_SESSION["id"])) {
                         <?php
                         $query = "select * from categories";
                         $result = mysqli_query($cnx, $query);
-                        if (!$result) {
-                            die("query faild" . mysqli_error());
+                        if(!$result) {
+                            die("query faild".mysqli_error());
                         } else {
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while($row = mysqli_fetch_assoc($result)) {
 
                                 ?>
                                 <tr>
@@ -267,7 +284,8 @@ if (isset($_SESSION["id"])) {
                                     <td>
                                         <?php echo $row['Categorie_Name']; ?>
                                     </td>
-                                    <td><a href = "update_categorie.php?id=<?php echo $row['Categorie_ID'];?>" class = "btn btn-info">Update</a></td>
+                                    <td><a href="update_categorie.php?id=<?php echo $row['Categorie_ID']; ?>"
+                                            class="btn btn-info">Update</a></td>
                                     <td><a href="#" class="btn btn-danger">Delete</a></td>
                                 </tr>
                                 <?php
@@ -338,57 +356,57 @@ if (isset($_SESSION["id"])) {
         </div>
     </div>
     <script>
-$(document).ready(function () {
-$(".btn-danger").click(function () {
-var Categorie_ID = $(this).closest("tr").find("td:first-child").text();
+        $(document).ready(function () {
+            $(".btn-danger").click(function () {
+                var Categorie_ID = $(this).closest("tr").find("td:first-child").text();
 
-        $.ajax({
-            url: "delete.php",
-            type: "GET",
-            data: { Categorie_ID: Categorie_ID },
-            success: function (response) {
-                if (response === "success") {
-                    
-                    location.reload();
-                } else {
-                    alert("Error deleting Categorie");
-                }
-            }
+                $.ajax({
+                    url: "delete.php",
+                    type: "GET",
+                    data: { Categorie_ID: Categorie_ID },
+                    success: function (response) {
+                        if (response === "success") {
+
+                            location.reload();
+                        } else {
+                            alert("Error deleting Categorie");
+                        }
+                    }
+                });
+            });
         });
-    });
-});
-</script>
-<script>
-$(document).ready(function () {
-    // Handle form submission
-    $("#addcategoriesForm").submit(function (e) {
-        e.preventDefault();
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Handle form submission
+            $("#addcategoriesForm").submit(function (e) {
+                e.preventDefault();
 
-        // Get form data
-        var formData = $(this).serialize();
+                // Get form data
+                var formData = $(this).serialize();
 
-        // Send AJAX request to add_project.php
-        $.ajax({
-            url: "add_categorie.php",
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                if (response === "success") {
-                    // Refresh the page or update the table as needed
-                    location.reload();
-                } else {
-                    alert("Error adding categories");
-                }
-            }
+                // Send AJAX request to add_project.php
+                $.ajax({
+                    url: "add_categorie.php",
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        if (response === "success") {
+                            // Refresh the page or update the table as needed
+                            location.reload();
+                        } else {
+                            alert("Error adding categories");
+                        }
+                    }
+                });
+            });
         });
-    });
-});
-</script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="dashboard.js"></script>
-    <script src="agents.js"></script>
+    <script src="./js/dashbord.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

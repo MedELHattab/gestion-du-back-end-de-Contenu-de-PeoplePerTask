@@ -1,13 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION["id"])) {
+if(!isset($_SESSION["id"])) {
   header("Location:../sign.php");
   exit();
 }
 
-include("cnx.php"); 
+include("cnx.php");
 $userId = $_SESSION["id"];
-$users = mysqli_query($cnx, "SELECT * FROM users");
+// $users = mysqli_query($cnx, "SELECT * FROM users");
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
 $userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
 $users = mysqli_fetch_assoc($userResult);
@@ -38,9 +38,9 @@ $users = mysqli_fetch_assoc($userResult);
           <img class="close align-self-start" src="img/close.svg" alt="">
         </div>
 
-        <ul class="sidebar_nav">
+        <ul class="sidebar_nav" style="max-height: 80vh; overflow-y: auto;">
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item active" style="width: 100%;">
               <a href="dashboard.php" class="sidebar_link"> <img src="img/1. overview.svg" alt="">Overview</a>
@@ -48,13 +48,13 @@ $users = mysqli_fetch_assoc($userResult);
           <?php } ?>
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item">
               <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">Users</a>
             </li>
             <?php
-          } elseif ($users["role"] == 'visitor') {
+          } elseif($users["role"] == 'visitor') {
             ?>
             <li class="sidebar_item">
               <a href="../visitor_profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
@@ -65,13 +65,13 @@ $users = mysqli_fetch_assoc($userResult);
 
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item">
-              <a href="users.php" class="sidebar_link"> <img src="img/agents.svg" alt="">freelancer</a>
+              <a href="freelancers.php" class="sidebar_link"> <img src="img/agents.svg" alt="">freelancer</a>
             </li>
             <?php
-          } elseif ($users["role"] == 'freelancer') {
+          } elseif($users["role"] == 'freelancer') {
             ?>
             <li class="sidebar_item">
               <a href="../profil.php" class="sidebar_link"> <img src="img/agents.svg" alt="">profil</a>
@@ -82,13 +82,13 @@ $users = mysqli_fetch_assoc($userResult);
 
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item">
               <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
             </li>
             <?php
-          } elseif ($users["role"] == 'visitor') {
+          } elseif($users["role"] == 'visitor') {
             ?>
             <li class="sidebar_item">
               <a href="testimonials.php" class="sidebar_link"> <img src="img/agents.svg" alt="#">Testimonial</a>
@@ -98,7 +98,7 @@ $users = mysqli_fetch_assoc($userResult);
           ?>
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item ">
               <a href="categories.php" class="sidebar_link"><img src="img/agent.svg" alt="">Categories</a>
@@ -108,7 +108,7 @@ $users = mysqli_fetch_assoc($userResult);
           ?>
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item">
               <a href="sub-categories.php" class="sidebar_link"><img src="img/articles.svg" alt="">Sub-categories</a>
@@ -118,13 +118,13 @@ $users = mysqli_fetch_assoc($userResult);
           ?>
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item ">
               <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
             </li>
             <?php
-          } elseif ($users["role"] == 'visitor') {
+          } elseif($users["role"] == 'visitor') {
             ?>
             <li class="sidebar_item ">
               <a href="projects.php" class="sidebar_link"><img src="img/articles.svg" alt="">projects</a>
@@ -135,14 +135,14 @@ $users = mysqli_fetch_assoc($userResult);
 
 
           <?php
-          if ($users["role"] == 'admin') {
+          if($users["role"] == 'admin') {
             ?>
             <li class="sidebar_item ">
               <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
             </li>
 
             <?php
-          } elseif ($users["role"] == 'freelancer') {
+          } elseif($users["role"] == 'freelancer') {
             ?>
             <li class="sidebar_item ">
               <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
@@ -211,7 +211,9 @@ $users = mysqli_fetch_assoc($userResult);
             </div>
           </div>
           <div class="inline"></div>
-          <div class="name"><?php echo htmlspecialchars($username); ?></div>
+          <div class="name">
+            <?php echo htmlspecialchars($username); ?>
+          </div>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a href="#" class="nav-icon pe-md-0 position-relative" data-bs-toggle="dropdown">
