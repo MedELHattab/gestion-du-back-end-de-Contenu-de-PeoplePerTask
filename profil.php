@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION["id"])) {
-  header("Location:../sign.php");
-  exit();
+if(!isset($_SESSION["id"])) {
+    header("Location:../sign.php");
+    exit();
 }
 
-include("./dashboard/cnx.php"); 
+include("./dashboard/cnx.php");
 $userId = $_SESSION["id"];
 $users = mysqli_query($cnx, "SELECT * FROM users");
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
@@ -72,7 +72,9 @@ $userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4><?php echo htmlspecialchars($username); ?></h4>
+                                    <h4>
+                                        <?php echo htmlspecialchars($username); ?>
+                                    </h4>
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
                                     <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
                                     <button class="btn btn-primary">Follow</button>
@@ -199,82 +201,64 @@ $userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
                         </div>
                     </div>
 
-                    <div class="row gutters-sm">
-                        <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i
-                                            class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                                    <small>Web Design</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Website Markup</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                            aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>One Page</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Mobile Template</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                            aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Backend API</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                            aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Add Skills</h5>
+                            <form method="post" action="add_skills.php">
+                                <div class="mb-3">
+                                    <label for="skillInput" class="form-label">Skill:</label>
+                                    <input type="text" class="form-control" id="skillInput" name="skill" required>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i
-                                            class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                                    <small>Web Design</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Website Markup</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                            aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>One Page</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                            aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Mobile Template</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                            aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Backend API</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                            aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary">Add Skill</button>
+                            </form>
                         </div>
                     </div>
+                    <?php
+                    // session_start();
+// include("./dashboard/cnx.php");
+                    
+                    // // if (!isset($_SESSION["id"])) {
+// //     echo "error: User not logged in";
+// //     exit();
+// // }
+                    
+                    // // $userId = $_SESSION["id"];
+                    
+                    $getSkillsQuery = "SELECT s.skill FROM skills s
+                  JOIN pivot_skills ps ON s.id = ps.skill_id
+                  WHERE ps.User_ID = $userId";
 
+                    $result = mysqli_query($cnx, $getSkillsQuery);
 
-
+                    if($result) {
+                        $skills = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                    } else {
+                        echo "Error retrieving skills: ".mysqli_error($cnx);
+                    }
+                    ?>
+                    <div class="row card mx-1 " style="background-color: #ffffff; padding: 10px;">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Skills</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <ul>
+                                <?php
+                                if(!empty($skills)) {
+                                    foreach($skills as $skill) {
+                                        echo "<li>".htmlspecialchars($skill['skill'])."</li>";
+                                    }
+                                } else {
+                                    echo "<p>No skills found.</p>";
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <footer class="footer-section">
         <div class="container">
             <div class="footer-cta pt-5 pb-5">

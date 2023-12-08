@@ -7,10 +7,12 @@ if(!isset($_SESSION["id"])) {
 
 include("cnx.php");
 $userId = $_SESSION["id"];
+// $users = mysqli_query($cnx, "SELECT * FROM users");
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
 $userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
 $users = mysqli_fetch_assoc($userResult);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -230,27 +232,30 @@ $users = mysqli_fetch_assoc($userResult);
 
 
             <section class="Agents px-4">
-                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
-                    data-bs-target="#addcategoriesModal">
-                    Add categories
-                </button>
-                <div class="modal fade" id="addcategoriesModal" tabindex="-1" aria-labelledby="addcategoriesModalLabel"
+
+                <div class="modal fade" id="addOfferModal" tabindex="-1" aria-labelledby="addOfferModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addcategoriesModalLabel">Add New categories</h5>
+                                <h5 class="modal-title" id="addOfferModalLabel">Add New Offer</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="addcategoriesForm">
+                                <form id="submitOfferForm">
+                                    <!-- Your form fields here -->
                                     <div class="mb-3">
-                                        <label for="Categorie_Name" class="form-label">Categorie_Name</label>
-                                        <textarea class="form-control" id="Categorie_Name" name="Categorie_Name"
-                                            required></textarea>
+                                        <label for="Amount" class="form-label">Amount</label>
+                                        <input type="text" class="form-control" id="Amount" name="Amount" required>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Add categories</button>
+                                    <div class="mb-3">
+                                        <label for="Deadline" class="form-label">Deadline</label>
+                                        <input type="date" class="form-control" id="Deadline" name="Deadline" required>
+                                    </div>
+                                    <br>
+                                    <input type="hidden" id="Project_ID" name="Project_ID">
+                                    <button type="submit" class="btn btn-primary">Submit offer</button>
                                 </form>
                             </div>
                         </div>
@@ -260,16 +265,26 @@ $users = mysqli_fetch_assoc($userResult);
 
                     <thead class="bg-light">
                         <tr>
-                            <th>Categorie_ID</th>
-                            <th>Categorie_Name</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            <th>Offer_ID</th>
+                            <th>Amount</th>
+                            <th>Deadline</th>
+                            <th>Title</th>
+                            <th>Username</th>
+                            <th>Accept</th>
+                            <th>refuse</th>
+                            <!-- <th>Delete</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query = "select * from categories";
+                        $query = "SELECT o.*, p.Title, U.Username
+          FROM offers o where 
+          INNER JOIN projects p ON p.Project_ID = o.Project_ID
+          INNER JOIN users U ON U.User_ID = o.User_ID";
+          
+
                         $result = mysqli_query($cnx, $query);
+
                         if(!$result) {
                             die("query faild".mysqli_error());
                         } else {
@@ -278,19 +293,28 @@ $users = mysqli_fetch_assoc($userResult);
                                 ?>
                                 <tr>
                                     <td>
-                                        <?php echo $row['Categorie_ID']; ?>
+                                        <?php echo $row['Offer_ID']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['Categorie_Name']; ?>
+                                        <?php echo $row['Amount']; ?>
                                     </td>
-                                    <td><a href="update_categorie.php?id=<?php echo $row['Categorie_ID']; ?>"
-                                            class="btn btn-info">Update</a></td>
-                                    <td><a href="#" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <?php echo $row['Deadline']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['Title']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['Username']; ?>
+                                    </td>
+
+                                    <td><a href="#" class="btn btn-success">Accepte</a>
+                                    </td>
+                                    <td><a href="#" class="btn btn-danger">Refuse</a></td>
                                 </tr>
                                 <?php
                             }
                         }
-
                         ?>
 
                     </tbody>
@@ -298,103 +322,33 @@ $users = mysqli_fetch_assoc($userResult);
 
 
             </section>
-            <!-- edit modal -->
-            <div class="modal">
-                <div class="modal-content">
-                    <form id="forms">
-                        <!-- 2 column grid layout with text inputs for the first and last names -->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">First name</label>
-                                    <input type="text" class="form-control first_name">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">Last name</label>
-                                    <input type="text" class="form-control last_name">
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Email</label>
-                            <input type="text" class="form-control email">
-                        </div>
-
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-control title_user">
-                        </div>
-
-                        <!-- Number input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Status</label>
-                            <input type="text" class="form-control status">
-                        </div>
-
-                        <!-- Message input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Position</label>
-                            <textarea class="form-control position" rows="4"></textarea>
-                        </div>
-
-                        <!-- Submit button -->
-                        <div class="d-flex w-100 justify-content-center">
-                            <p class="error text-danger"></p>
-                            <button type="submit" class="btn btn-success btn-block mb-4 me-4 save">Save Edit</button>
-                            <button class="btn btn-danger btn-block mb-4 annuler">Annuler</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
         </div>
     </div>
+
     <script>
         $(document).ready(function () {
-            $(".btn-danger").click(function () {
-                var Categorie_ID = $(this).closest("tr").find("td:first-child").text();
+            $(".submitOfferBtn").click(function () {
 
-                $.ajax({
-                    url: "delete.php",
-                    type: "GET",
-                    data: { Categorie_ID: Categorie_ID },
-                    success: function (response) {
-                        if (response === "success") {
-
-                            location.reload();
-                        } else {
-                            alert("Error deleting Categorie");
-                        }
-                    }
-                });
+                var projectId = $(this).data("Project_ID");
+                $("#submitOfferForm input[name='Project_ID']").val(projectId);
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            // Handle form submission
-            $("#addcategoriesForm").submit(function (e) {
+
+            $("#submitOfferForm").submit(function (e) {
                 e.preventDefault();
 
                 // Get form data
                 var formData = $(this).serialize();
 
-                // Send AJAX request to add_project.php
                 $.ajax({
-                    url: "add_categorie.php",
+                    url: "submit_offer.php",
                     type: "POST",
                     data: formData,
                     success: function (response) {
                         if (response === "success") {
-                            // Refresh the page or update the table as needed
                             location.reload();
                         } else {
-                            alert("Error adding categories");
+                            alert("Error adding offer");
                         }
                     }
                 });
@@ -404,6 +358,12 @@ $users = mysqli_fetch_assoc($userResult);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+    <script src="agents.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <script src="./js/dashbord.js"></script>
     <script src="./js/script.js"></script>
 </body>

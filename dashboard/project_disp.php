@@ -226,81 +226,29 @@ $users = mysqli_fetch_assoc($userResult);
 
 
       <section class="Agents px-4">
-        <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addProjectModal">
-          Add Project
-        </button>
-        <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel"
+
+        <div class="modal fade" id="addOfferModal" tabindex="-1" aria-labelledby="addOfferModalLabel"
           aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+                <h5 class="modal-title" id="addOfferModalLabel">Add New Offer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <!-- Add Project Form -->
-                <form id="addProjectForm">
+                <form id="submitOfferForm">
+                  <!-- Your form fields here -->
                   <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <label for="Amount" class="form-label">Amount</label>
+                    <input type="text" class="form-control" id="Amount" name="Amount" required>
                   </div>
                   <div class="mb-3">
-                    <label for="description" class="form-label">Project Description</label>
-                    <textarea class="form-control" id="description" name="description" required></textarea>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="Categorie_Name">Categorie_Name:</label>
-                    <select name="Categorie_ID" id="#">
-                      <?php
-                      $query = "SELECT * from categories";
-                      $result = mysqli_query($cnx, $query);
-                      foreach($result as $res) { ?>
-                        <option value="<?php echo $res['Categorie_ID'] ?>">
-                          <?php echo $res['Categorie_Name'] ?>
-                        </option>
-                      <?php } ?>
-
-                    </select>
+                    <label for="Deadline" class="form-label">Deadline</label>
+                    <input type="date" class="form-control" id="Deadline" name="Deadline" required>
                   </div>
                   <br>
-                  <div class="form-group">
-                    <label for="SousCategorie_Name">SousCategorie_Name:</label>
-                    <select name="SousCategorie_ID" id="#">
-                      <?php
-                      $query = "SELECT * from souscategories";
-                      $result = mysqli_query($cnx, $query);
-                      foreach($result as $res) { ?>
-                        <option value="<?php echo $res['SousCategorie_ID'] ?>">
-                          <?php echo $res['SousCategorie_Name'] ?>
-                        </option>
-                      <?php } ?>
-
-                    </select>
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="Username">User Name:</label>
-                    <br>
-                    <select name="User_ID" id="#">
-                      <?php
-                      $query = "SELECT * from users";
-                      $result = mysqli_query($cnx, $query);
-                      foreach($result as $res) { ?>
-                        <option value="<?php echo $res['User_ID'] ?>">
-                          <?php echo $res['Username'] ?>
-                        </option>
-                      <?php } ?>
-
-                    </select>
-                  </div>
-                  <br>
-                  <div class="mb-3">
-                    <label for="tags" class="form-label">Tags</label>
-                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Tag1, Tag2, Tag3">
-                    <small id="tagsHelp" class="form-text text-muted">Enter tags separated by commas.</small>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Add Project</button>
+                  <input type="hidden" id="Project_ID" name="Project_ID">
+                  <button type="submit" class="btn btn-primary">Submit offer</button>
                 </form>
               </div>
             </div>
@@ -316,8 +264,8 @@ $users = mysqli_fetch_assoc($userResult);
               <th>Categorie_Name</th>
               <th>SousCategorie_Name</th>
               <th>Username</th>
-              <th>Update</th>
-              <th>Delete</th>
+              <th>offer submit</th>
+              <!-- <th>Delete</th> -->
             </tr>
           </thead>
           <tbody>
@@ -336,7 +284,7 @@ $users = mysqli_fetch_assoc($userResult);
 
                 ?>
                 <tr>
-                  <td>
+                  <td class="Project_ID">
                     <?php echo $row['Project_ID']; ?>
                   </td>
                   <td>
@@ -354,8 +302,11 @@ $users = mysqli_fetch_assoc($userResult);
                   <td>
                     <?php echo $row['Username']; ?>
                   </td>
-                  <td><a href="update_project.php?id=<?php echo $row['Project_ID']; ?>" class="btn btn-info">Update</a></td>
-                  <td><a href="#" class="btn btn-danger">Delete</a></td>
+                  <td>
+                    <a href="#" class="btn btn-success submitOfferBtn"
+                      data-Project_ID="<?php echo isset($row['Project_ID']) ? $row['Project_ID'] : ''; ?>"
+                      data-bs-toggle="modal" data-bs-target="#addOfferModal">Submit</a>
+                  </td>
                 </tr>
                 <?php
               }
@@ -372,48 +323,29 @@ $users = mysqli_fetch_assoc($userResult);
     </div>
   </div>
 
-
   <script>
     $(document).ready(function () {
-      $(".btn-danger").click(function () {
-        var project_id = $(this).closest("tr").find("td:first-child").text();
+      $(".submitOfferBtn").click(function () {
 
-        $.ajax({
-          url: "delete.php",
-          type: "GET",
-          data: { project_id: project_id },
-          success: function (response) {
-            if (response === "success") {
-              // Refresh the page or update the table as needed
-              location.reload();
-            } else {
-              alert("Error deleting project");
-            }
-          }
-        });
+        var projectId = $(this).data("Project_ID");
+        $("#submitOfferForm input[name='Project_ID']").val(projectId);
       });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
-      // Handle form submission
-      $("#addProjectForm").submit(function (e) {
+
+      $("#submitOfferForm").submit(function (e) {
         e.preventDefault();
 
         // Get form data
         var formData = $(this).serialize();
 
-        // Send AJAX request to add_project.php
         $.ajax({
-          url: "add.php",
+          url: "submit_offer.php",
           type: "POST",
           data: formData,
           success: function (response) {
             if (response === "success") {
-              // Refresh the page or update the table as needed
               location.reload();
             } else {
-              alert("Error adding project");
+              alert("Error adding offer");
             }
           }
         });
@@ -425,11 +357,12 @@ $users = mysqli_fetch_assoc($userResult);
     crossorigin="anonymous"></script>
   <script src="dashboard.js"></script>
   <script src="agents.js"></script>
-</body>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-<script src="./js/dashbord.js"></script>
-<script src="./js/script.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+  <script src="./js/dashbord.js"></script>
+  <script src="./js/script.js"></script>
+</body>
 
 </html>
