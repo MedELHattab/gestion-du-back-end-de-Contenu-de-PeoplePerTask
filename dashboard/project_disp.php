@@ -334,7 +334,7 @@ $users = mysqli_fetch_assoc($userResult);
       $("#submitOfferForm").submit(function (e) {
         e.preventDefault();
 
-        // Get form data
+       
         var formData = $(this).serialize();
 
         $.ajax({

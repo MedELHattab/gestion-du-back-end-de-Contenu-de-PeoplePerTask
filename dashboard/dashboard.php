@@ -142,10 +142,10 @@ $users = mysqli_fetch_assoc($userResult);
             </li>
 
             <?php
-          } elseif($users["role"] == 'freelancer') {
+          } elseif($users["role"] == 'visitor') {
             ?>
             <li class="sidebar_item ">
-              <a href="offers.php" class="sidebar_link"><img src="img/articles.svg" alt="">Offers</a>
+              <a href="myoffers.php" class="sidebar_link"><img src="img/articles.svg" alt="">My Offers</a>
             </li>
             <?php
           }

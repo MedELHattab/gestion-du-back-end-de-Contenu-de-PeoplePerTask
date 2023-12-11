@@ -8,11 +8,12 @@ if (isset($_SESSION["id"])) {
 $loggedIn = isset($_SESSION["id"]);
 
 $data = mysqli_query($cnx, "SELECT * FROM testimonials");
-$testimonials = mysqli_fetch_assoc($data);
-$freelancers = mysqli_query($cnx, "SELECT * FROM freelancers");
+// $testimonials = mysqli_fetch_assoc($data);
+// $data = mysqli_query($cnx, "SELECT * FROM freelancers ORDER BY Freelancer_ID DESC");
+$freelancers = mysqli_query($cnx, "SELECT * FROM freelancers ORDER BY Freelancer_ID DESC");
 $projects = mysqli_query($cnx, "SELECT * FROM projects");
 $offers = mysqli_query($cnx, "SELECT * FROM offers");
-$categories = mysqli_query($cnx, "SELECT * FROM categories");
+$categories = mysqli_query($cnx, "SELECT * FROM categories ORDER BY Categorie_ID DESC");
 ?>
 
 <!DOCTYPE html>
@@ -76,13 +77,17 @@ $categories = mysqli_query($cnx, "SELECT * FROM categories");
                     </li>
                 </ul>
 
-                <?php
+                <!-- <?php
                 if (!$loggedIn) {
                     echo '<form class="d-flex nav_btn" role="search">';
                     echo '<a href="sign.php" class="btn btn-primary">' . $lang['Connect'] . '</a>';
                     echo '</form>';
+                } else {
+                    echo '<form class="d-flex nav_btn" role="search">';
+                    echo '<a href="./dashboard/logout.php" class="btn btn-primary">' . $lang['Logout'] . '</a>';
+                    echo '</form>';
                 }
-                ?>
+                ?> -->
 
                 <div class="languages">
                     <a href="index.php?lg=fr">
@@ -128,7 +133,7 @@ $categories = mysqli_query($cnx, "SELECT * FROM categories");
             <div class="filters-content">
                 <div class="row grid">
                     <?php while ($project = mysqli_fetch_assoc($projects)) { ?>
-                        <div class="col-md-4 mb-4 all <?php echo explode(' ', $project['Categorie_Name'])[0]; ?>">
+                        <div class="col-md-4 mb-4 all <?php echo explode(' ', $project['Title'])[0]; ?>">
                             <div class="card">
                                 <img src="images/<?= $project['image'] ?>" class="card-img-top" alt="<?= $project['Title'] ?>">
                                 <div class="card-body">
@@ -151,7 +156,7 @@ $categories = mysqli_query($cnx, "SELECT * FROM categories");
 <section class="container mb-5 mt-3">
     <div class="row">
         <h2 class="mb-5 text-center"><?= $lang['Most Popular Freelancers'] ?></h2>
-        <!-- Slider main container -->
+
         <div class="swiper">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
@@ -183,7 +188,7 @@ $categories = mysqli_query($cnx, "SELECT * FROM categories");
                     </div>
                 <?php } ?>
             </div>
-            <!-- If we need pagination -->
+            
             <div class="swiper-pagination"></div>
         </div>
     </div>
@@ -222,16 +227,16 @@ $categories = mysqli_query($cnx, "SELECT * FROM categories");
             <?php while ($offre = mysqli_fetch_assoc($offers)) { ?>
                 <div class="col-md-6 col-xl-4 mb-4">
                     <div class="col_offres">
-                        <img src="images/<?= $offre['image'] ?>" width="100%" alt="<?= $offre['Title'] ?>">
+                        <img src="images/<?= $offre['image'] ?>" width="100%" alt="<?= $project['Amount'] ?>">
                         <div class="p-4">
-                            <h3><?= $offre['Title'] ?></h3>
-                            <p class="p_offres mt-3"><?= $offre['description'] ?> </p>
+                            <h3><?= $project['Amount'] ?></h3>
+                            <p class="p_offres mt-3"><?= $project['Deadline'] ?> </p>
                             <div class="categories_offres d-grid">
                                 <span>Développement FullStack</span>
                                 <span>Développement Web</span>
                                 <span>Frontend & Backend</span>
                             </div>
-                            <a href="details_project?id=<?= $offre['id_project'] ?>" class="btn btn-primary btn_projet mt-3">Details</a>
+                            <a href="details_project?id=<?= $project['id_project'] ?>" class="btn btn-primary btn_projet mt-3">Details</a>
                         </div>
                     </div>
                 </div>

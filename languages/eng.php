@@ -12,7 +12,7 @@ return [
     'Sign in' => 'Sign in',
     'Categories Filter' => 'Categories Filter',
     'Most Popular Categories' => 'Most Popular Categories',
-    'Most Popular Freelances' => 'Most Popular Freelances',
+    'Most Popular Freelancers' => 'Most Popular Freelancers',
     'The Most Popular Offers' => 'The Most Popular Offers',
     'Testimonials' => 'Testimonials',
     'Find us' => 'Find us',

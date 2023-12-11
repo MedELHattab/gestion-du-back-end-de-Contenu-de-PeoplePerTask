@@ -7,7 +7,7 @@ if(!isset($_SESSION["id"])) {
 
 include("cnx.php");
 $userId = $_SESSION["id"];
-// $users = mysqli_query($cnx, "SELECT * FROM users");
+
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Default Username';
 $userResult = mysqli_query($cnx, "SELECT * FROM users WHERE User_ID = $userId");
 $users = mysqli_fetch_assoc($userResult);
@@ -277,10 +277,11 @@ $users = mysqli_fetch_assoc($userResult);
                     </thead>
                     <tbody>
                         <?php
-                        $query = "SELECT o.*, p.Title, U.Username
-          FROM offers o 
-          INNER JOIN projects p ON p.Project_ID = o.Project_ID
-          INNER JOIN users U ON U.User_ID = o.User_ID";
+                       $query = "SELECT o.*, p.Title, U.Username
+                       FROM offers o
+                       INNER JOIN projects p ON p.Project_ID = o.Project_ID
+                       INNER JOIN users U ON U.User_ID = o.User_ID
+                       WHERE o.User_ID = $userId";
 
 
                         $result = mysqli_query($cnx, $query);

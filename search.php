@@ -1,18 +1,30 @@
+<?php
+
+include("dashboard/cnx.php");
+session_start();
+
+$loggedIn = isset($_SESSION["id"]);
+
+// Check if the search form is submitted
+if (isset($_GET['search_query'])) {
+    $search_query = mysqli_real_escape_string($cnx, $_GET['search_query']);
+    $projects = mysqli_query($cnx, "SELECT * FROM projects WHERE Title LIKE '%$search_query%'");
+} else {
+    $projects = mysqli_query($cnx, "SELECT * FROM projects");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/search.css" />
     <link rel="stylesheet" href="css/header_footer.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>Search</title>
-  </head>
-  <body>
+</head>
+<body>
     <header>
       <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -49,15 +61,16 @@
                 <a class="nav-link" href="contact.php">Contact</a>
               </li>
             </ul>
-            <form class="d-flex nav_btn" role="search">
+            <!-- <form class="d-flex nav_btn" role="search">
               <a href="sign.php" class="btn btn-primary">Connect</a>
-            </form>
+            </form> -->
             <i id="dark-mode-toggle" class="fas fa-moon ps-3 "></i>
           </div>
         </div>
       </nav>
     </header>
     <main>
+    
       <section class="main-carousel">
         <div class="container">
           <div class="row" style="gap: 1rem">
@@ -103,42 +116,48 @@
         </div>
       </section>
       <section class="search-input">
-        <div class="container input-con">
-          <div class="input-group mb-3 mt-5">
-            <input
-              id="myinput"
-              type="text"
-              class="form-control"
-              placeholder="Search"
-              aria-label="Recipient's username"
-              aria-describedby="button-addon2"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon2"
-            >
-              <i
-                class="fa-solid fa-magnifying-glass"
-                style="color: #ffffff"
-              ></i>
-            </button>
-          </div>
+            <div class="container input-con">
+                <form id="searchForm" method="GET" action="">
+                    <div class="input-group mb-3 mt-5">
+                        <input
+                            id="myinput"
+                            type="text"
+                            class="form-control"
+                            name="search_query"
+                            placeholder="Search"
+                            aria-label="Recipient's username"
+                            aria-describedby="button-addon2"
+                        />
+                        <button
+                            class="btn btn-outline-secondary"
+                            type="submit"
+                            id="button-addon2"
+                        >
+                            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <div class="filters-content">
+            <div class="row grid">
+                <?php while ($project = mysqli_fetch_assoc($projects)) { ?>
+                    <div class="col-md-4 mb-4 all <?php echo explode(' ', $project['Title'])[0]; ?>">
+                        <div class="card">
+                            <img src="images/<?= $project['image'] ?>" class="card-img-top" alt="<?= $project['Title'] ?>">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $project['Title'] ?></h5>
+                                <p class="card-text"><?= $project['Project_Description'] ?></p>
+                                <i class="fa-solid fa-star"></i> <span> 55</span> (62) <br>
+                                <i class="fa-solid fa-eye"></i><span> 122</span> <br><br>
+                                <a href="project_details.php?project_id=<?= $project['Project_ID'] ?>" class="btn btn-primary btn_projet">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
-      </section>
-
-      <section class="section-cards">
-        <div class="container mb-5">
-          <h3 class="text-danger mt-5 text-center" id="para" style="display: none;">Not Found </h3>
-          
-          <div class="row mt-3" id="card">
-            
-      
-          </div>
-      
-      </div>
-
-      </section>
     </main>
 
 

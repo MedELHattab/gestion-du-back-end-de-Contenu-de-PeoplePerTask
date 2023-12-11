@@ -2,7 +2,6 @@
 require("cnx.php");
 session_start();
 
-// Check if the user is logged in
 if (!isset($_SESSION["id"])) {
     echo "error: User not logged in";
     exit();
@@ -12,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Amount = mysqli_real_escape_string($cnx, $_POST['Amount']);
     $Deadline = mysqli_real_escape_string($cnx, $_POST['Deadline']);
     $Project_ID = mysqli_real_escape_string($cnx, $_POST['Project_ID']);  
-    $query = "INSERT INTO offers (Amount, Deadline, Project_ID, User_ID) VALUES ('$Amount', '$Deadline', '$Project_ID', '$User_ID')";
+    $query = "INSERT INTO 'offers' (Amount, Deadline, Project_ID, User_ID) VALUES ('$Amount', '$Deadline', '$Project_ID', '$User_ID')";
 
     $result = mysqli_query($cnx, $query);
 
